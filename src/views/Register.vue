@@ -1,13 +1,13 @@
 <template>
-  <h2>This is Register Page</h2>
   <div class="container">
     <div class="row d-flex align-content-center justify-content-center">
       <!--      <label for="">{{error}}</label>-->
       <div class="col col-sm-12 col-md-6 col-lg-6">
         <form @submit.prevent="submit" autocomplete="on">
-          <p class="text-light bg-danger mt-1 p-2 justify-content-center">Enter Registration Details</p>
-          Name:
-          <input type="text" v-model="name"  class="form-control" placeholder="Enter Email" required>
+
+          <p style="font-size: 22px;" class="py-2 px-2 text-info text-bg-secondary">Register Here <button class="btn btn-primary float-end">
+            <a class="text-white" href="/login">Login</a></button></p>          Name:
+          <input type="text" v-model="name"  class="form-control" placeholder="Enter Full Name" required>
           Email:
           <input type="email" v-model="email"  class="form-control" placeholder="Enter Email" required>
            Languages:
@@ -15,7 +15,7 @@
            Occupation:
           <input type="text" v-model="occupation"  class="form-control" placeholder="Enter Occupation" required>
           Password:
-          <input type="password" v-model="password"  class="form-control" placeholder="Enter Email" required>
+          <input type="password" v-model="password"  class="form-control" placeholder="Enter Password" required>
           <button type="submit" class="btn btn-outline-info my-2 form-control">Register</button>
       </form>
       </div>

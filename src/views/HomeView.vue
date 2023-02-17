@@ -50,6 +50,10 @@ import {onMounted, ref} from "vue";
 
 
 const companies=ref([]);
+const showId= (id) =>{
+  alert(id)
+}
+const username=localStorage.getItem('username')
 const getcompanies=async() =>{
   const res = await axios.get('http://127.0.0.1:8000/api/showhosting');
   companies.value=res.data;
@@ -64,7 +68,7 @@ const getcompaniesphp=async() =>{
 
 onMounted(()=>{
   getcompanies();
-  getcompaniesphp()
+  getcompaniesphp();
 })
 </script>
 <style>
