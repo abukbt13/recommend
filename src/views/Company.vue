@@ -23,7 +23,12 @@ import axios from "axios";
 import {ref} from "vue";
 const company_name=ref('')
 const company_logo=ref('')
+const user=ref('')
+    user.value=localStorage.getItem('username')
 
+if(user.value=== null){
+  window.location('/login')
+}
 const api = axios.create({
   baseURL: 'http://127.0.0.1:8000/api/',
   headers: {
@@ -42,8 +47,6 @@ const submit=async () => {
   if (res.status == 200) {
     alert('success')
     // router.push('/dashboard')
-    localStorage.setItem('token', res.data.token)
-    localStorage.setItem('username', res.data.user.name)
 
   }
 

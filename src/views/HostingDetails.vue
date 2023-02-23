@@ -7,20 +7,21 @@
         <form @submit.prevent="submit" autocomplete="on">
           <p class="text-light bg-danger mt-1 p-2 justify-content-center">Hosting Details of different companiescompany_id</p>
           Company Name:
-          <input type="text" v-model="company_name"  class="form-control" placeholder="Enter Company Name" required>
+          <select class="form-control" v-model="company_name">
+            <option  v-for="company in companies" v-bind:value="company.company_name">
+              {{ company.company_name }}
+            </option>
+          </select>
           Language:
           <select class="form-control" v-model="language">
-            <option value="">---Select Destination---</option>
-            <option value="PHP">PHP</option>
-            <option value="FIREBASE">FIREBASE</option>
-            <option value="VUE JS">VUE JS</option>
-            <option value="JAVA">JAVA</option>
-            <option value="PYTHON">PYTHON</option>
-            <option value="FLUTTER">FLUTTER</option>
-            <option value="RUBI">RUBI</option>
-            <option value="FLUTTER">FLUTTER</option>
-            <option value="REACT">REACT</option>
-            <option value="LARAVEL">LARAVEL</option>
+            <option  v-for="language in languages" v-bind:value="language.name">
+              {{ language.name }}
+            </option>
+          </select>
+          Type:
+          <select class="form-control" v-model="type">
+            <option value="Frontend">Frontend</option>
+            <option value="Backend">Backend</option>
           </select>
           Least Price per storage provided:
           <input type="number" v-model="least_pricing_storage"  class="form-control" placeholder="Enter Price per storage" required>
@@ -52,9 +53,13 @@ const api = axios.create({
 });
 const company_name=ref('');
 const language=ref('');
+const type=ref('');
 const least_pricing_storage=ref('');
 const storage=ref('');
 const can_host_free=ref('');
+
+const companies=ref([]);
+const languages=ref([]);
 // const error=ref('');
 
 const submit=async () => {
@@ -64,18 +69,30 @@ const submit=async () => {
   formData.append('least_pricing_storage',least_pricing_storage.value);
   formData.append('can_host_free',can_host_free.value);
   formData.append('storage', storage.value);
+  formData.append('type', type.value);
 
   const res = await api.post('hosting_details',formData);
   if(res.status==200) {
     alert('success')
     // router.push('/dashboard')rating
-
   }
-
-
-
-
 }
+const get_hosting_companies=async() =>{
+  const res = await api.get('select_company');
+  companies.value=res.data.details;
+  // console.log(res.data.details);
+};
+const get_languages=async() =>{
+  const res = await api.get('select_language');
+  languages.value=res.data.details;
+  console.log(res.data.details);
+};
+onMounted(
+    ()=>{
+      get_hosting_companies()
+      get_languages()
+    }
+)
 </script>
 <style scoped>
 .row{

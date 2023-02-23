@@ -4,6 +4,13 @@ import Register from "@/views/Register.vue";
 import Company from "@/views/Company.vue";
 import Hosting from  "@/views/HostingDetails.vue"
 import Login from "@/views/Login.vue"
+import Language from "@/views/Language.vue"
+import Admindashboard from "@/views/Admindashboard.vue"
+
+// const requiresAuth=false;
+
+const user=localStorage.getItem('username')
+// alert(user)
 const routes = [
   {
     path: '/',
@@ -16,28 +23,29 @@ const routes = [
     component: Register
   },
   {
+    path: '/language',
+    name: 'language',
+    component: Language
+  },
+  {
+    path: '/admindashboard',
+    name: 'admindashboard',
+    component: Admindashboard
+  },
+  {
     path: '/login',
     name: 'login',
-    component: Login,
-    meta: {
-      needsAuth: false
-    }
+    component: Login
   },
   {
     path: '/company',
     name: 'company',
-    component: Company,
-    meta: {
-      needsAuth: true
-    }
+    component: Company
   },
   {
     path: '/hostingdetails',
     name: 'hostingdetails',
-    component: Hosting,
-    meta: {
-      needsAuth: true
-    }
+    component: Hosting
   }
 ]
 
@@ -45,12 +53,14 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
-router.beforeEach((to, from, next) =>{
-  if(to.meta.needsAuth){ // Check if the destination route has the needsAuth meta field
-    next('/login'); // Redirect to the login route if needsAuth is true
+router.beforeEach((to, from, next) => {
+  if (to.path === '/company' && user === null ) {
+    router.push('/login')
   }
-  else{
-    next() // Proceed to the destination route if needsAuth is false
-  }
+  next();
 })
+
+
+
+
 export default router

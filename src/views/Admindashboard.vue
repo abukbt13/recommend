@@ -1,11 +1,8 @@
 <template>
-<h1>hghjhbjknbkj</h1>
+<h2>Admin dashboard</h2>
 </template>
 
 <script>
-export default {
-  name: "Hostingmoreinfo"
-}
 </script>
 
 <style scoped>

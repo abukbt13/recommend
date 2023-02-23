@@ -1,12 +1,22 @@
 <template>
-  <div class="container">
-    <div class="row d-flex align-content-center justify-content-center">
-      <!--      <label for="">{{error}}</label>-->
-      <div class="col col-sm-12 col-md-6 col-lg-6">
-        <form @submit.prevent="submit" autocomplete="on">
+  <div class="navigate">
+    <button class="m-4 p-2 btn back btn-primary"><a class="text-white" href="/">Go back</a></button>
+  </div>
+  <div class="container d-flex align-items-center justify-content-center">
 
-          <p style="font-size: 22px;" class="py-2 px-2 text-info text-bg-secondary">Register Here <button class="btn btn-primary float-end">
-            <a class="text-white" href="/login">Login</a></button></p>          Name:
+      <!--      <label for="">{{error}}</label>-->
+      <div class="col col-sm-12 col-md-6 col-lg-6 w-50">
+        <form @submit.prevent="submit" autocomplete="on">
+        <div class="naviated">
+          <p style="font-size: 15px;" class="px-3 text-info text-bg-secondary">Register Here <button class="btn btn-primary btn-sm float-end">
+            <a class="text-white" href="/login">Login</a></button></p>
+        </div>
+          <ul class="">
+            <li class="bg-danger text-white p-3" v-for="error in errors" :key="error">
+              {{ error }}
+            </li>
+          </ul>
+        Name:
           <input type="text" v-model="name"  class="form-control" placeholder="Enter Full Name" required>
           Email:
           <input type="email" v-model="email"  class="form-control" placeholder="Enter Email" required>
@@ -19,7 +29,7 @@
           <button type="submit" class="btn btn-outline-info my-2 form-control">Register</button>
       </form>
       </div>
-    </div>
+
   </div>
 </template>
 
@@ -37,7 +47,7 @@
   const language=ref('');
   const occupation=ref('');
   const name=ref('');
-  // const error=ref('');
+  const errors=ref([]);
 
   const submit=async () => {
   const formData = new FormData();
@@ -49,10 +59,17 @@
 
   const res = await axios.post('http://127.0.0.1:8000/api/register',formData);
   if(res.status==200) {
-  alert('success')
-  // router.push('/dashboard')
-  localStorage.setItem('token', res.data.token)
-  localStorage.setItem('username', res.data.user.name)
+    errors.value=res.data.errors
+    if(res.data.status=='success'){
+      localStorage.setItem('token', res.data.token)
+      localStorage.setItem('username', res.data.user.name)
+      localStorage.setItem('language', res.data.user.language)
+      localStorage.setItem('language', res.data.user.id)
+      router.push('/')
+    }
+
+
+
 
 }
 
@@ -62,14 +79,12 @@
 }
 </script>
 <style scoped>
-.row{
-  min-height:50vh;
+.container{
+  width: 100vw;
+  height: 84vh;
 }
-.shoes{
-  background-color: grey;
-  min-height: 25vh;
-  max-height:50vh;
-  overflow-y:scroll;
+.col{
+  width: 12rem;
+}
 
-}
 </style>
