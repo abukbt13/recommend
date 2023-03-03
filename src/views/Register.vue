@@ -21,8 +21,9 @@
           Email:
           <input type="email" v-model="email"  class="form-control" placeholder="Enter Email" required>
            Languages:
-          <input type="text" v-model="language"  class="form-control" placeholder="Enter Languages" required>
+          <input type="text" v-model="language_type"  class="form-control" placeholder="Enter Languages" required>
            Occupation:
+          <p>Are you a software developer</p>
           <input type="text" v-model="occupation"  class="form-control" placeholder="Enter Occupation" required>
           Password:
           <input type="password" v-model="password"  class="form-control" placeholder="Enter Password" required>
@@ -43,8 +44,8 @@
 
   const email=ref('');
   const password=ref('');
-  const c_password=ref('');
-  const language=ref('');
+  // const c_password=ref('');
+  const language_type=ref('');
   const occupation=ref('');
   const name=ref('');
   const errors=ref([]);
@@ -55,7 +56,7 @@
   formData.append('email', email.value);
   formData.append('password',password.value);
   formData.append('occupation', occupation.value);
-  formData.append('language', language.value);
+  formData.append('language_type', language_type.value);
 
   const res = await axios.post('http://127.0.0.1:8000/api/register',formData);
   if(res.status==200) {

@@ -5,6 +5,7 @@
       <!--      <label for="">{{error}}</label>-->
       <div class="col col-sm-12 col-md-6 col-lg-6">
         <form @submit.prevent="submit" autocomplete="on">
+
           <p class="text-light bg-danger mt-1 p-2 justify-content-center">Hosting Details of different companiescompany_id</p>
           Company Name:
           <select class="form-control" v-model="company_name">
@@ -79,7 +80,7 @@ const submit=async () => {
 }
 const get_hosting_companies=async() =>{
   const res = await api.get('select_company');
-  companies.value=res.data.details;
+  companies.value=res.data
   // console.log(res.data.details);
 };
 const get_languages=async() =>{
