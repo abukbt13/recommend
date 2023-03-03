@@ -1,55 +1,60 @@
 <template>
-  <Header />
+<Header />
+  <form @submit.prevent="searchCompany">
+    <input type="text" v-model="searchTerm" placeholder="Search...">
+    <button type="submit">Search</button>
+  </form>
+
   <div class="home">
-    <div class="sow" v-if="username">
-      <div class="usercard">
-        <div class="card" v-for="userslanguage in userslanguages" :key="userslanguage" @mouseleave="showContent">
-          <div class="card-header text-center">
-            <span>{{userslanguage.company_name}}</span>
-          </div>
-          <div class="card-body">
-            <img :src="'http://127.0.0.1:8000/storage/company/'+userslanguage.company_logo" style="width:100%; height: 14rem;">
-            <p>hello world</p>
-          </div>
-          <div class="card-footer">
-            <div class="btn btn-primary text-white btn-outline-info">Visit this hosting</div>{{userslanguage.id}}
-            <button   @click="showId(userslanguage.id)" class="btn float-end btn-danger text-white btn-outline-info">More Details</button>
-          </div>
-        </div>
-        <div class="card" v-for="languageloved in languageloveds" :key="languageloved" @mouseleave="showContent">
-          <div class="card-header text-center">
-            <span>{{languageloved.company_name}}</span>
-          </div>
-          <div class="card-body">
-            <img :src="'http://127.0.0.1:8000/storage/company/'+languageloved.company_logo" style="width:100%; height: 14rem;">
-            <p>hello world</p>
-          </div>
-          <div class="card-footer">
-            <div class="btn btn-primary text-white btn-outline-info">Visit this hosting</div>{{languageloved.id}}
-            <button   @click="showId(languageloved.id)" class="btn float-end btn-danger text-white btn-outline-info">More Details</button>
-          </div>
-        </div>
-      </div>
+    <div style="display: grid;grid-template-columns: 1fr 1fr;gap:1rem;" class="searchbar" v-if="searchTerm" v-for="result in searchResults" :key="result.id">
 
-      <h2>Most people also love</h2>
-      <div class="usercard">
-        <div class="card" v-for="alsoloved in alsoloveds" :key="alsoloved" @mouseleave="showContent">
+        <div class="card">
           <div class="card-header text-center">
-            <span>{{alsoloved.company_name}}</span>
+            <span>{{result.company_name}}</span>
           </div>
           <div class="card-body">
-            <img :src="'http://127.0.0.1:8000/storage/company/'+alsoloved.company_logo" style="width:100%; height: 14rem;">
+            <img :src="'http://127.0.0.1:8000/storage/company/'+result.company_logo" style="width:100%; height: 14rem;">
             <p>hello world</p>
           </div>
           <div class="card-footer">
-            <div class="btn btn-primary text-white btn-outline-info">Visit this hosting</div>{{alsoloved.id}}
-            <button   @click="showId(alsoloved.id)" class="btn float-end btn-danger text-white btn-outline-info">More Details</button>
           </div>
         </div>
 
-      </div>
+
     </div>
-    <div class="companies"   v-else="{usernamedetails}">
+    <div class="gen" v-else="">
+      <div class="sow" v-if="username">
+        <div class="card"  v-for="suggestfrontent in suggestfrontents" :key="suggestfrontent" >
+          <div class="card-header text-center">
+            <span>{{suggestfrontent.company_name}}</span>
+          </div>
+          <div class="card-body">
+            <img :src="'http://127.0.0.1:8000/storage/company/'+suggestfrontent.company_logo" style="width:100%; height: 14rem;">
+            <p>hello world</p>
+          </div>
+          <div class="card-footer">
+            <button    class="btn w-100 btn-danger text-white btn-outline-info">view More Details</button>
+          </div>
+        </div>
+        <div class="break">
+          <h2>Other people also like</h2>
+
+        </div>
+        <div class="card"  v-for="suggestbackend in suggestbackends" :key="suggestbackend" >
+          <div class="card-header text-center">
+            <span>{{suggestbackend.company_name}}</span>
+          </div>
+          <div class="card-body">
+            <img :src="'http://127.0.0.1:8000/storage/company/'+suggestbackend.company_logo" style="width:100%; height: 14rem;">
+            <p>hello world</p>
+          </div>
+          <div class="card-footer">
+            <button    class="btn w-100 btn-danger text-white btn-outline-info">view More Details</button>
+          </div>
+        </div>
+
+      </div>
+      <div class="companies"   v-else="">
         <div class="card" v-for="company in companies" :key="company" @mouseleave="showContent">
           <div class="card-header text-center">
             <span>{{company.company_name}}</span>
@@ -59,63 +64,30 @@
             <p>hello world</p>
           </div>
           <div class="card-footer">
-            <div class="btn btn-primary text-white btn-outline-info">Visit this hosting</div>{{company.id}}
-            <button   @click="showId(company.id)" class="btn float-end btn-danger text-white btn-outline-info">More Details</button>
+            <button   @click="fetchDetails(company.id)" class="btn w-100 btn-danger text-white btn-outline-info">view More Details</button>
           </div>
         </div>
-
-
-      <div class="card" >
-        <div class="card-header text-center">
-          <span>{{bestfrontends.company_name}}</span>
-        </div>
-        <div class="card-body">
-          <img :src="'http://127.0.0.1:8000/storage/company/'+bestfrontends.company_logo" style="width:100%; height: 14rem;">
-            <p>This is best frontend</p>
-        </div>
-
-        <div class="card-footer">
-          <div class="btn btn-primary text-white btn-outline-info">Visit this hosting</div>
-          <button   class="btn float-end btn-danger text-white btn-outline-info">More Details</button>
-
-        </div>
       </div>
-      <div class="card" >
-        <div class="card-header text-center">
-          <span>{{bestbackends.company_name}}</span>
-        </div>
-        <div class="card-body">
-          <img :src="'http://127.0.0.1:8000/storage/company/'+bestbackends.company_logo" style="width:100%; height: 14rem;">
-            <p>This is best frontend</p>
-        </div>
 
-        <div class="card-footer">
-          <div class="btn btn-primary text-white btn-outline-info">Visit this hosting</div>
-          <button   class="btn float-end btn-danger text-white btn-outline-info">More Details</button>
+      <div class="hover" v-show="hover" v-for="companydetail in companydetails" :key="companydetail" >
+        <!--  {{companydetail}}-->
+        <h4 class="text-center text-uppercase text-primary bg-white">{{companydetail.company_name}} </h4>
+        <p class="text-white">Amazon web hosting is a good company that provides cheap and secure hosting to your websites </p>
+        <p class="text-white text-decoration-underline">Lannguages it supports include</p>
+        <ul>
+          <li class="list-style-">Vue js</li>
+          <li class="list-unstyled">Php </li>
+          <li class="list-unstyled">Laravel</li>
+          <li class="list-unstyled">React js</li>
+        </ul>
+        <a class="btn ms-4 btn-outline-danger btn-danger text-white w-75" href="https://aws.amazon.com/free/?trk=2d3e6bee-b4a1-42e0-8600-6f2bb4fcb10c&sc_channel=ps&s_kwcid=AL!4422!3!645125273264!e!!g!!amazon%20aws&ef_id=CjwKCAiAxvGfBhB-EiwAMPakqs_m8xmeVd-weqKcy2uVlxwYBhv7IPcfxFWt0bOipcOk5w2EeQvS6RoCS-4QAvD_BwE:G:s&s_kwcid=AL!4422!3!645125273264!e!!g!!amazon%20aws&all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all">
+          Visit the website
+        </a>
+      </div>
 
-        </div>
-      </div>
-      <div class="card" v-for="other in othercompanies" :key="other" @mouseleave="showContent">
-        <div class="card-header text-center">
-          <span>{{other.company_name}}</span>
-        </div>
-        <div class="card-body">
-          <img :src="'http://127.0.0.1:8000/storage/company/'+other.company_logo" style="width:100%; height: 14rem;">
-          <p>hello world</p>
-        </div>
-        <div class="card-footer">
-          <div class="btn btn-primary text-white btn-outline-info">Visit this hosting</div>{{other.id}}
-          <button   @click="showId(other.id)" class="btn float-end btn-danger text-white btn-outline-info">More Details</button>
-        </div>
-      </div>
 
     </div>
 
-
-
-  </div>
-  <div class="footer">
-<!--<Footer/>-->
   </div>
 </template>
 
@@ -125,12 +97,33 @@ import Footer from "@/components/Footer.vue";
 import axios from "axios"
 import {onMounted, ref} from "vue";
 import Header from "@/views/header.vue";
+import async from "async";
+const hover=ref(false);
 
 const  usernamedetails=localStorage.getItem('username')
 const companies=ref([]);
 const othercompanies=ref([]);
-const showId= (id) =>{
-  alert(id)
+const companydetails=ref([]);
+const searchTerm = ref('');
+const searchResults = ref([]);
+
+const searchCompany = async () => {
+  const res = await axios.get('http://127.0.0.1:8000/api/search', {params: {q: searchTerm.value}});
+  if (res.status == 200) {
+    // alert('success')
+    searchResults.value = res.data;
+    console.log(searchResults.value)
+  }
+}
+
+const fetchDetails= async (id) =>{
+
+  const res = await axios.get(`http://127.0.0.1:8000/api/companydetails/${id}`);
+  if (res.status == 200) {
+    hover.value=true;
+    companydetails.value=res.data;
+    // console.log(res.data.company_name);
+  }
 }
 const api = axios.create({
   baseURL: 'http://127.0.0.1:8000/api/',
@@ -140,9 +133,8 @@ const api = axios.create({
 });
 const bestfrontends=ref([]);
 const bestbackends=ref([]);
-const userslanguages=ref([]);
-const languageloveds=ref([]);
-const alsoloveds=ref([]);
+const suggestfrontents=ref([]);
+const suggestbackends=ref([]);
 
 const username=localStorage.getItem('username')
 const getcompanies=async() =>{
@@ -161,36 +153,30 @@ const backendcompany=async() =>{
   const res = await axios.get('http://127.0.0.1:8000/api/bestbackend');
   bestbackends.value=res.data;
 };
-
-const recommendlanguage = async () => {
-  const res = await api.get('recommendlanguage');
+const recommenduser=async() =>{
+  const res = await api.get('recommenduser');
   console.log(res.data)
-  userslanguages.value=res.data;
+  suggestfrontents.value=res.data.usercompanies;
+  suggestbackends.value=res.data.othercompanies;
 };
 
-const recommendlanguageloveds = async () => {
-  const res = await api.get('languageloved');
-  console.log(res.data)
-  languageloveds.value=res.data;
-}
-const languagealsoloveds = async () => {
-  const res = await api.get('languagealsoloveds');
-  console.log(res.data)
-  alsoloveds.value=res.data;
-}
 
 onMounted(()=>{
   getcompanies();
   frontendcompany();
   backendcompany();
   showothers();
-  recommendlanguage();
-  recommendlanguageloveds();
-  languagealsoloveds();
+  recommenduser();
 })
 </script>
 <style>
-.usercard{
+.searchbar{
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.sow{
+
   display: grid;
   gap: 1rem;
   grid-template-columns: 1fr 1fr 1fr;
@@ -201,4 +187,14 @@ onMounted(()=>{
   gap: 1rem;
   grid-template-columns: 1fr 1fr 1fr;
 }
+.hover{
+  width:40vw;
+  background-color:#4b7bec;
+  opacity: 1;z-index: 1;
+  padding: 1rem;
+  position:absolute;
+  top:30vh;
+  left:30vw;
+}
+
 </style>

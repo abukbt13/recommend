@@ -6,6 +6,7 @@ import Hosting from  "@/views/HostingDetails.vue"
 import Login from "@/views/Login.vue"
 import Language from "@/views/Language.vue"
 import Admindashboard from "@/views/Admindashboard.vue"
+import Test  from "@/views/Test.vue";
 
 // const requiresAuth=false;
 
@@ -46,6 +47,11 @@ const routes = [
     path: '/hostingdetails',
     name: 'hostingdetails',
     component: Hosting
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: Test
   }
 ]
 
