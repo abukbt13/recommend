@@ -1,12 +1,9 @@
 <template>
-  <div class="navigate">
-    <button class="m-4 p-2 btn back btn-primary"><a class="text-white" href="/">Go back</a></button>
-  </div>
+  <Header />
   <div class="container d-flex align-items-center justify-content-center">
 
       <div class="col col-sm-12 col-md-6 col-lg-6">
-        <p style="font-size: 22px;" class="py-2 px-2 text-info text-bg-secondary">Login Here <button class="btn btn-primary float-end">
-          <a class="text-white" href="/register">CREATE ACCOUNT</a></button></p>
+        <p style="font-size: 22px;" class="py-2 text-xl-center px-2 text-info text-bg-secondary">Login Here</p>
        <p class="text-uppercase text-white bg-danger p-2" v-if="error">{{error}}</p>
         <form @submit.prevent="submit" autocomplete="on">
 
@@ -14,7 +11,16 @@
           <input type="email" v-model="email"  class="form-control" placeholder="Enter Email" required autocomplete="email">
            Password:
           <input type="password" v-model="password"  class="form-control" placeholder="Enter Password" required>
-          <button type="submit" class="btn btn-outline-info my-2 form-control">LOGIN NOW</button>
+          <div class="d-flex justify-content-between pt-2">
+            <div class="">
+              <button type="submit" class="btn btn-outline-info">Login</button>
+            </div>
+            <div class="form-group d-flex">
+              <p>Forget password?. Dont worry<a href="retrieve" type="submit" class="btn btn-primary">Retrieve password</a></p>
+
+            </div>
+          </div>
+          <p>Create An account?. <a href="register" class="btn text-decoration-underline">Click here</a> </p>
         </form>
       </div>
   </div>
@@ -27,7 +33,7 @@ import {useRoute, useRouter} from "vue-router";
 import axios from "axios";
 const error=ref('')
 const router = useRouter();
-
+import Header from "@/views/header.vue";
 const email=ref('');
 const password=ref('');
 // const error=ref('');
@@ -53,7 +59,7 @@ const submit=async () => {
       }
     }else{
 
-      error.value = res.data.error
+      error.value = res.data.message
     }
   }
 

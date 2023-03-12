@@ -1,11 +1,12 @@
 <template>
 <Header />
-  <form @submit.prevent="searchCompany">
+  <form class="form" @submit.prevent="searchCompany">
     <input type="text" v-model="searchTerm" placeholder="Search...">
     <button type="submit">Search</button>
   </form>
-
+  <Navbar/>
   <div class="home">
+<!--    if user search"\???-->
     <div style="display: grid;grid-template-columns: 1fr 1fr;gap:1rem;" class="searchbar" v-if="searchTerm" v-for="result in searchResults" :key="result.id">
 
         <div class="card">
@@ -20,9 +21,10 @@
           </div>
         </div>
 
-
     </div>
     <div class="gen" v-else="">
+
+<!--      Authenticated view??-->
       <div class="sow" v-if="username">
         <div class="card"  v-for="suggestfrontent in suggestfrontents" :key="suggestfrontent" >
           <div class="card-header text-center">
@@ -30,23 +32,18 @@
           </div>
           <div class="card-body">
             <img :src="'http://127.0.0.1:8000/storage/company/'+suggestfrontent.company_logo" style="width:100%; height: 14rem;">
-            <p>hello world</p>
           </div>
           <div class="card-footer">
             <button    class="btn w-100 btn-danger text-white btn-outline-info">view More Details</button>
           </div>
         </div>
-        <div class="break">
-          <h2>Other people also like</h2>
 
-        </div>
         <div class="card"  v-for="suggestbackend in suggestbackends" :key="suggestbackend" >
           <div class="card-header text-center">
             <span>{{suggestbackend.company_name}}</span>
           </div>
           <div class="card-body">
             <img :src="'http://127.0.0.1:8000/storage/company/'+suggestbackend.company_logo" style="width:100%; height: 14rem;">
-            <p>hello world</p>
           </div>
           <div class="card-footer">
             <button    class="btn w-100 btn-danger text-white btn-outline-info">view More Details</button>
@@ -54,6 +51,8 @@
         </div>
 
       </div>
+
+<!--      //Authenticated Users view-->
       <div class="companies"   v-else="">
         <div class="card" v-for="company in companies" :key="company" @mouseleave="showContent">
           <div class="card-header text-center">
@@ -61,27 +60,22 @@
           </div>
           <div class="card-body">
             <img :src="'http://127.0.0.1:8000/storage/company/'+company.company_logo" style="width:100%; height: 14rem;">
-            <p>hello world</p>
           </div>
           <div class="card-footer">
-            <button   @click="fetchDetails(company.id)" class="btn w-100 btn-danger text-white btn-outline-info">view More Details</button>
+            <button   @click="fetchDetails(company.id)" class="btn w-100 btn-danger text-white btn-outline-info">Click view Sumary</button>
           </div>
         </div>
       </div>
 
-      <div class="hover" v-show="hover" v-for="companydetail in companydetails" :key="companydetail" >
-        <!--  {{companydetail}}-->
-        <h4 class="text-center text-uppercase text-primary bg-white">{{companydetail.company_name}} </h4>
+      <div class="hover" v-show="hover" v-for="companydetail in companydetails" :key="companydetail">
+        <h4  class="text-center text-uppercase text-primary bg-white">{{companydetail.company_name}} </h4>
         <p class="text-white">Amazon web hosting is a good company that provides cheap and secure hosting to your websites </p>
         <p class="text-white text-decoration-underline">Lannguages it supports include</p>
-        <ul>
-          <li class="list-style-">Vue js</li>
-          <li class="list-unstyled">Php </li>
-          <li class="list-unstyled">Laravel</li>
-          <li class="list-unstyled">React js</li>
+        <ul v-for="languagedetail in languagedetails" :key="languagedetail">
+          <li>{{languagedetail.language}}</li>
         </ul>
-        <a class="btn ms-4 btn-outline-danger btn-danger text-white w-75" href="https://aws.amazon.com/free/?trk=2d3e6bee-b4a1-42e0-8600-6f2bb4fcb10c&sc_channel=ps&s_kwcid=AL!4422!3!645125273264!e!!g!!amazon%20aws&ef_id=CjwKCAiAxvGfBhB-EiwAMPakqs_m8xmeVd-weqKcy2uVlxwYBhv7IPcfxFWt0bOipcOk5w2EeQvS6RoCS-4QAvD_BwE:G:s&s_kwcid=AL!4422!3!645125273264!e!!g!!amazon%20aws&all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all">
-          Visit the website
+        <a class="btn ms-4 btn-outline-danger btn-danger text-white w-75" @click="showMoreCompanydetails(companydetail.company_name)">
+          More About {{companydetail.company_name}}
         </a>
       </div>
 
@@ -98,12 +92,16 @@ import axios from "axios"
 import {onMounted, ref} from "vue";
 import Header from "@/views/header.vue";
 import async from "async";
+import router from "@/router";
+import {useRouter} from "vue-router";
+import Navbar from "@/components/Navbar.vue";
 const hover=ref(false);
 
 const  usernamedetails=localStorage.getItem('username')
 const companies=ref([]);
 const othercompanies=ref([]);
 const companydetails=ref([]);
+const languagedetails=ref([]);
 const searchTerm = ref('');
 const searchResults = ref([]);
 
@@ -122,7 +120,18 @@ const fetchDetails= async (id) =>{
   if (res.status == 200) {
     hover.value=true;
     companydetails.value=res.data;
-    // console.log(res.data.company_name);
+  }
+  const ress = await axios.get(`http://127.0.0.1:8000/api/companydetailslanguages/${id}`);
+  if (ress.status == 200) {
+   languagedetails.value=ress.data.company_details;
+    // console.log(company_details.value);
+  }
+}
+function showMoreCompanydetails(name){
+  // alert(name)
+  const result = axios.get(`http://127.0.0.1:8000/api/showmoreCompanydetails/${name}`);
+  if (result.status == 200) {
+    router.push('/company_moredetail')
   }
 }
 const api = axios.create({
@@ -187,6 +196,35 @@ onMounted(()=>{
   gap: 1rem;
   grid-template-columns: 1fr 1fr 1fr;
 }
+
+@media screen and (max-width: 500px) and (min-width: 200px) {
+  .companies{
+    /*width:100%;*/
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  .sow{
+    /*width:100%;*/
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  .companies{
+    margin-top:3rem;
+  } .card{
+  width: 100%;
+    margin-top:3rem;
+  }
+  .form{display: flex;
+    background-color: #2c2c54;
+   margin-top:5.4rem;
+    margin-left: -19em;
+    position:absolute;
+    left:0;
+    top:2rem;
+  }
+}
 .hover{
   width:40vw;
   background-color:#4b7bec;
@@ -195,6 +233,13 @@ onMounted(()=>{
   position:absolute;
   top:30vh;
   left:30vw;
+}
+.form{
+  position:absolute;
+  top:0.2rem;
+  left:20rem;
+  background-color:white;
+  z-index: 1;
 }
 
 </style>
