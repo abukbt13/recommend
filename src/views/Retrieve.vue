@@ -38,6 +38,7 @@ const router = useRouter();
 import Header from "@/views/header.vue";
 const email=ref('');
 const error=ref('');
+const otp=ref('');
 
 const submit=async () => {
   const formData = new FormData();
@@ -45,7 +46,21 @@ const submit=async () => {
 
   const res = await axios.post('http://127.0.0.1:8000/api/request_reset_password', formData);
   if (res.status == 200) {
-    router.push('/resetPassword')
+
+    otp.value=res.data.otp
+
+    if(res.data.status=='success') {
+      router.push({
+        path: '/resetPassword',
+        query: {
+          email: email.value,
+          otp: otp.value
+        }
+      });
+    }
+    else{
+      error.value=res.data.error
+    }
   }
 }
 </script>

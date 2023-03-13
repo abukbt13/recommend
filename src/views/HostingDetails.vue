@@ -62,7 +62,12 @@ const can_host_free=ref('');
 const companies=ref([]);
 const languages=ref([]);
 // const error=ref('');
+const role_as=ref('')
+role_as.value=localStorage.getItem('role_as')
 
+if (role_as.value === null || role_as.value !== '1') {
+  window.location.href = '/login';
+}
 const submit=async () => {
   const formData = new FormData();
   formData.append('company_name', company_name.value);

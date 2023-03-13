@@ -9,7 +9,7 @@
       </div>
       <div class="form-group">
       <label for="">OTP</label>
-      <input type="text" v-model="otp" minlength="5" maxlength="5" class="form-control">
+      <input type="text" v-model="otp" minlength="4" maxlength="5" class="form-control">
       </div>
       <div class="form-group">
       <button class="btn mt-2 w-100 btn-success">Verify your Account</button>
@@ -44,7 +44,7 @@ const submit=async () => {
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('username', res.data.user.name)
             localStorage.setItem('language', res.data.user.language)
-            localStorage.setItem('language', res.data.user.id)
+            localStorage.setItem('role_as', res.data.user.role_as)
             if(res.data.user.role_as == '0'){
               router.push('/')
             }

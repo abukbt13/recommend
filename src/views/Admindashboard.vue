@@ -2,6 +2,7 @@
 <AdminHeader />
   <div  class="main-content">
     <div class="sidebar">
+
       <h2 class="bg-">
         Main Menu
       </h2>
@@ -28,13 +29,28 @@
       </ul>
     </div>
     <div class="content">
-
+    <p>{{name}}</p>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref, computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
+const name = computed(() => route.query.name);
+
+
+const role_as=ref('')
+role_as.value=localStorage.getItem('role_as')
+
+if (role_as.value === null || role_as.value !== '1') {
+  window.location.href = '/login';
+}
 import AdminHeader  from "@/components/AdminHeader.vue";
+
 </script>
 
 <style scoped>

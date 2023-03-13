@@ -7,6 +7,7 @@
   <Navbar/>
   <div class="home">
 <!--    if user search"\???-->
+
     <div style="display: grid;grid-template-columns: 1fr 1fr;gap:1rem;" class="searchbar" v-if="searchTerm" v-for="result in searchResults" :key="result.id">
 
         <div class="card">
@@ -69,7 +70,7 @@
 
       <div class="hover" v-show="hover" v-for="companydetail in companydetails" :key="companydetail">
         <h4  class="text-center text-uppercase text-primary bg-white">{{companydetail.company_name}} </h4>
-        <p class="text-white">Amazon web hosting is a good company that provides cheap and secure hosting to your websites </p>
+        <p class="text-white">{{ companydetail.company_name }} web hosting is a good company that provides cheap and secure hosting to your websites </p>
         <p class="text-white text-decoration-underline">Lannguages it supports include</p>
         <ul v-for="languagedetail in languagedetails" :key="languagedetail">
           <li>{{languagedetail.language}}</li>
@@ -162,6 +163,7 @@ const backendcompany=async() =>{
   const res = await axios.get('http://127.0.0.1:8000/api/bestbackend');
   bestbackends.value=res.data;
 };
+
 const recommenduser=async() =>{
   const res = await api.get('recommenduser');
   console.log(res.data)

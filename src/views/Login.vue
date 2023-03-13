@@ -50,7 +50,7 @@ const submit=async () => {
       localStorage.setItem('token', res.data.token)
       localStorage.setItem('username', res.data.user.name)
       localStorage.setItem('language', res.data.user.language)
-      localStorage.setItem('language', res.data.user.id)
+      localStorage.setItem('role_as', res.data.user.role_as)
       if(res.data.user.role_as == '0'){
         router.push('/')
       }

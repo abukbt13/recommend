@@ -23,11 +23,11 @@ import axios from "axios";
 import {ref} from "vue";
 const company_name=ref('')
 const company_logo=ref('')
-const user=ref('')
-    user.value=localStorage.getItem('username')
+const role_as=ref('')
+role_as.value=localStorage.getItem('role_as')
 
-if(user.value=== null){
-  window.location('/login')
+if (role_as.value === null || role_as.value !== '1') {
+  window.location.href = '/login';
 }
 const api = axios.create({
   baseURL: 'http://127.0.0.1:8000/api/',
