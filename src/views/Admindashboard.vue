@@ -13,8 +13,8 @@
       </ul>
       <p>Companies Details</p>
       <ul>
-        <li class="list-unstyled"><a class="text-decoration-none" href="/company">Add Companies Detail</a></li>
-        <li class="list-unstyled"><a class="text-decoration-none" href="/company">View Companies Detail</a></li>
+        <li class="list-unstyled"><a class="text-decoration-none" href="/hostingdetails">Add Companies Detail</a></li>
+        <li class="list-unstyled"><a class="text-decoration-none" href="/hostingdetails/view">View Companies Detail</a></li>
 
       </ul>
       <p>Hosting Details</p>

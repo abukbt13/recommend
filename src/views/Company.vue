@@ -8,6 +8,10 @@
         <input type="text" class="form-control" v-model="company_name"  placeholder="Enter The Company">
       </div>
       <div class="form-group my-2">
+        <label for="">Company Url</label>
+        <input type="text" class="form-control" v-model="url"  placeholder="Enter The Company URL">
+      </div>
+      <div class="form-group my-2">
         <label for="">Picture</label>
         <input type="file" class="form-control"  @change="onFileChange"   placeholder="Enter The Company">
       </div>
@@ -23,6 +27,7 @@ import axios from "axios";
 import {ref} from "vue";
 const company_name=ref('')
 const company_logo=ref('')
+const url=ref('')
 const role_as=ref('')
 role_as.value=localStorage.getItem('role_as')
 
@@ -42,6 +47,7 @@ const submit=async () => {
   const formData = new FormData();
   formData.append('company_name', company_name.value);
   formData.append('company_logo', company_logo.value);
+  formData.append('url', url.value);
 
   const res = await api.post('company', formData);
   if (res.status == 200) {

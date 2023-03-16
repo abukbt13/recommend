@@ -8,7 +8,7 @@
   <div class="home">
 <!--    if user search"\???-->
 
-    <div style="display: grid;grid-template-columns: 1fr 1fr;gap:1rem;" class="searchbar" v-if="searchTerm" v-for="result in searchResults" :key="result.id">
+    <div style="display: grid;grid-template-columns: 1fr;" class="searchbar" v-if="searchTerm" v-for="result in searchResults" :key="result.id">
 
         <div class="card">
           <div class="card-header text-center">
@@ -69,16 +69,15 @@
       </div>
 
       <div class="hover" v-show="hover" v-for="companydetail in companydetails" :key="companydetail">
-        <h4  class="text-center text-uppercase text-primary bg-white">{{companydetail.company_name}} </h4>
-        <p class="text-white">{{ companydetail.company_name }} web hosting is a good company that provides cheap and secure hosting to your websites </p>
-        <p class="text-white text-decoration-underline">Lannguages it supports include</p>
-        <ul v-for="languagedetail in languagedetails" :key="languagedetail">
-          <li>{{languagedetail.language}}</li>
+        <h4 class="text-center text-uppercase text-primary bg-white">{{ companydetail.company_name }}</h4>
+        <p class="text-white">{{ companydetail.company_name }} web hosting is a good company that provides cheap and secure hosting to your websites.</p>
+        <p class="text-white text-decoration-underline">Languages it supports include:</p>
+        <ul>
+          <li v-for="languagedetail in companydetail.languagedetails" :key="languagedetail">{{ languagedetail.language }}</li>
         </ul>
-        <a class="btn ms-4 btn-outline-danger btn-danger text-white w-75" @click="showMoreCompanydetails(companydetail.company_name)">
-          More About {{companydetail.company_name}}
-        </a>
+        <a :href="companydetail.url" target="_blank" class="btn ms-4 btn-outline-danger btn-danger text-white w-75" @click="showMoreCompanydetails(companydetail.company_name)">More About</a>
       </div>
+
 
 
     </div>
@@ -200,7 +199,12 @@ onMounted(()=>{
 }
 
 @media screen and (max-width: 500px) and (min-width: 200px) {
-  .companies{
+
+  .searchbar{
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }.companies{
     /*width:100%;*/
     display: grid;
     gap: 1rem;
@@ -214,7 +218,8 @@ onMounted(()=>{
   }
   .companies{
     margin-top:3rem;
-  } .card{
+  }
+  .card{
   width: 100%;
     margin-top:3rem;
   }
@@ -232,7 +237,7 @@ onMounted(()=>{
   background-color:#4b7bec;
   opacity: 1;z-index: 1;
   padding: 1rem;
-  position:absolute;
+  position:fixed;
   top:30vh;
   left:30vw;
 }

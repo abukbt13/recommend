@@ -1,7 +1,7 @@
 <template>
   <Header />
 
-  <div class="container d-flex align-items-center justify-content-center">
+  <div v-show="register" class="container  d-flex align-items-center justify-content-center">
 
       <!--      <label for="">{{error}}</label>-->
       <div class="col col-sm-12 col-md-6 col-lg-6 w-50">
@@ -49,48 +49,60 @@
       </div>
 
   </div>
-  <div class="popup" v-show="popup">
-    <p class="text-">You have been successfully registered</p>
-    <p class="text-info text-bg-secondary">{{message}}</p>
-    <a class="text-decoration-none btn btn-success" href="/verify">Verify your account</a>
+  <div class="loader p-4" v-show="loader">
+    <p class="text-center">Your are being registered</p>
+      <div class="d-flex flex-row align-items-center justify-content-center">
+        <p>Registering</p>
+        <div style="font-size: 40px; width: 4rem;height: 4rem;" class="spinner-border spiner-border-lg"></div>
+      </div>
   </div>
 </template>
 
 
 <script setup>
-  import {onMounted, reactive, ref} from "vue";
-  import {useRoute, useRouter} from "vue-router";
-  import axios from "axios";
+import { ref } from 'vue';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
 
-  const router = useRouter();
-  import Header from '@/views/header.vue'
-  const email=ref('');
-  const password=ref('');
-  // const c_password=ref('');
-  const language_type=ref('');
-  const occupation=ref('');
-  const name=ref('');
-  const errors=ref([]);
-  const popup=false;
-  const message=ref('');
+    const name = ref('');
+    const email = ref('');
+    const password = ref('');
+    const occupation = ref('');
+    const language_type = ref('');
+    const errors = ref([]);
+    const message = ref('');
+    const loader = ref(false);
+    const register = ref(true);
+    const router = useRouter();
+    // const body=document.getElementsByName('body')
 
-  const submit=async () => {
-    const formData = new FormData();
-    formData.append('name', name.value);
-    formData.append('email', email.value);
-    formData.append('password', password.value);
-    formData.append('occupation', occupation.value);
-    formData.append('language_type', language_type.value);
+    const submit = async () => {
+      // body.style.backgrount='black'
+      register.value = false;
+      const formData = new FormData();
+      formData.append('name', name.value);
+      formData.append('email', email.value);
+      formData.append('password', password.value);
+      formData.append('occupation', occupation.value);
+      formData.append('language_type', language_type.value);
 
-    const res = await axios.post('http://127.0.0.1:8000/api/register', formData);
-    if (res.status == 200) {
-      errors.value = res.data.errors
-      message.value = res.data.message
-      // popup.value=true
-      // if(res.data.status=='success') {
-        router.push('/verify')
 
-    }
+      loader.value = true;
+
+      try {
+        const res = await axios.post('http://127.0.0.1:8000/api/register', formData);
+        if (res.status == 200) {
+          errors.value = res.data.errors;
+          message.value = res.data.message;
+          router.push('/verify');
+        }
+      } catch (error) {
+        alert('error in network');
+      } finally {
+        loader.value = false;
+      }
+
+
 
 
 }
@@ -105,19 +117,14 @@
 .col{
   width: 12rem;
 }
-.popup{
-  width: 20rem;
+.loader{
+  background-color: #227093;
+  width: 30rem;
   height: 20rem;
-  background-color: blue;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align: center;
-  padding: 1rem;
-  position: absolute;
-  top: 10rem;
+  position: fixed;
+  left: 30vw;
+  top:30vh;
   z-index: 1;
-  left:19rem;
 }
 
 </style>
