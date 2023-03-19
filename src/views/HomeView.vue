@@ -68,12 +68,17 @@
         </div>
       </div>
 
-      <div class="hover" v-show="hover" v-for="companydetail in companydetails" :key="companydetail">
+      <div class="hover"  v-show="hover" v-for="companydetail in companydetails" :key="companydetail">
+        <div @click="closeHover"  class="close rounded bg-danger text-white p-1 mb-1 float-end">
+          Close
+        </div>
+        <br><br>
         <h4 class="text-center text-uppercase text-primary bg-white">{{ companydetail.company_name }}</h4>
         <p class="text-white">{{ companydetail.company_name }} web hosting is a good company that provides cheap and secure hosting to your websites.</p>
         <p class="text-white text-decoration-underline">Languages it supports include:</p>
         <ul>
-          <li v-for="languagedetail in companydetail.languagedetails" :key="languagedetail">{{ languagedetail.language }}</li>
+          {{}}
+          <li v-for="languagedetail in languagedetails" :key="languagedetail">{{ languagedetail.language }}i</li>
         </ul>
         <a :href="companydetail.url" target="_blank" class="btn ms-4 btn-outline-danger btn-danger text-white w-75" @click="showMoreCompanydetails(companydetail.company_name)">More About</a>
       </div>
@@ -96,7 +101,6 @@ import router from "@/router";
 import {useRouter} from "vue-router";
 import Navbar from "@/components/Navbar.vue";
 const hover=ref(false);
-
 const  usernamedetails=localStorage.getItem('username')
 const companies=ref([]);
 const othercompanies=ref([]);
@@ -113,7 +117,9 @@ const searchCompany = async () => {
     console.log(searchResults.value)
   }
 }
-
+const closeHover = () => {
+ hover.value =false;
+}
 const fetchDetails= async (id) =>{
 
   const res = await axios.get(`http://127.0.0.1:8000/api/companydetails/${id}`);
@@ -124,7 +130,7 @@ const fetchDetails= async (id) =>{
   const ress = await axios.get(`http://127.0.0.1:8000/api/companydetailslanguages/${id}`);
   if (ress.status == 200) {
    languagedetails.value=ress.data.company_details;
-    // console.log(company_details.value);
+    console.log(company_details.value);
   }
 }
 function showMoreCompanydetails(name){
