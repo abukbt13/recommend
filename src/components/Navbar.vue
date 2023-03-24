@@ -1,8 +1,9 @@
 <template>
   <div class="itemslinks" >
-    <button class="btn btn-success me-2">All</button>
-    <button class="btn btn-success me-2">Frontend</button>
-    <button class="btn btn-success me-2">Backend</button>
+    <a href="/" class="btn btn-success me-2">HOME</a>
+    <a href="/all_companies" class="btn btn-success me-2">All</a>
+    <a href="/all_frontend" class="btn btn-success me-2">Frontend</a>
+      <a href="/all_backend" class="btn btn-success me-2">Backend</a>
     <div class="d-flex flex-row" v-for="specific_language in specific_languages" :key="specific_language">
 
       <button class="btn language btn-success p-2 ms-1">{{specific_language.name}}</button></div>
@@ -27,12 +28,15 @@ onMounted(()=>{
 
 <style scoped>
 .itemslinks{
+  z-index: 1;
   min-width: 3vw;
   max-width: 100vw;
   overflow-y: scroll;
   overflow-x: scroll;
   display: flex;
+  position:fixed;
   flex-direction: row;
+  margin-bottom: 4rem;
 }
 .language{
     width: 10rem;

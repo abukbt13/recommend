@@ -35,7 +35,7 @@
             <img :src="'http://127.0.0.1:8000/storage/company/'+suggestfrontent.company_logo" style="width:100%; height: 14rem;">
           </div>
           <div class="card-footer">
-            <button    class="btn w-100 btn-danger text-white btn-outline-info">view More Details</button>
+            <button   @click="fetchDetails(suggestfrontent.id)" class="btn w-100 btn-danger text-white btn-outline-info">Click view Sumary</button>
           </div>
         </div>
 
@@ -47,7 +47,7 @@
             <img :src="'http://127.0.0.1:8000/storage/company/'+suggestbackend.company_logo" style="width:100%; height: 14rem;">
           </div>
           <div class="card-footer">
-            <button    class="btn w-100 btn-danger text-white btn-outline-info">view More Details</button>
+            <button   @click="fetchDetails(suggestbackend.id)" class="btn w-100 btn-danger text-white btn-outline-info">Click view Sumary</button>
           </div>
         </div>
 
@@ -77,7 +77,7 @@
         <p class="text-white">{{ companydetail.company_name }} web hosting is a good company that provides cheap and secure hosting to your websites.</p>
         <p class="text-white text-decoration-underline">Languages it supports include:</p>
         <ul>
-          {{}}
+<!--          {{}}-->
           <li v-for="languagedetail in languagedetails" :key="languagedetail">{{ languagedetail.language }}i</li>
         </ul>
         <a :href="companydetail.url" target="_blank" class="btn ms-4 btn-outline-danger btn-danger text-white w-75" @click="showMoreCompanydetails(companydetail.company_name)">More About</a>

@@ -13,6 +13,9 @@ import Retrieve from "@/views/Retrieve.vue";
 import PasswordReset from "@/views/Passwordreset.vue";
 import Backend from "@/components/Backend";
 import Frontend from "@/components/Frontend";
+import All_companies from "@/views/All_companies.vue";
+import Allfrontend from "@/components/Allfrontend";
+import Allbackend from "@/components/Allbackend";
 // const requiresAuth=false;
 
 const user=localStorage.getItem('username')
@@ -87,18 +90,27 @@ const routes = [
     path: '/test',
     name: 'test',
     component: Test
+  },
+  {
+    path: '/all_companies',
+    name: 'All_companies',
+    component: All_companies
+  },
+  {
+    path: '/all_frontend',
+    name: 'all_frontend',
+    component: Allfrontend
+  },
+  {
+    path: '/all_backend',
+    name: 'all_backend',
+    component: Allbackend
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-})
-router.beforeEach((to, from, next) => {
-  if (to.path === '/company' && user === null ) {
-    router.push('/login')
-  }
-  next();
 })
 
 
