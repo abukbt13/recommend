@@ -6,7 +6,8 @@
       <a href="/all_backend" class="btn btn-success me-2">Backend</a>
     <div class="d-flex flex-row" v-for="specific_language in specific_languages" :key="specific_language">
 
-      <button class="btn language btn-success p-2 ms-1">{{specific_language.name}}</button></div>
+      <button @click="findCompanies(specific_language.name)" class="btn language btn-success p-2 ms-1">{{specific_language.name}}</button>
+    </div>
   </div>
 
 </template>
@@ -14,6 +15,16 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import axios from "axios";
+import { useRouter } from "vue-router";
+const router=useRouter()
+ const findCompanies = ($language) =>{
+  router.push({
+        path: '/show_all_companies',
+        query: {
+          language: $language
+        }
+      });
+ }
 
 const specific_languages=ref([]);
 const specificlanguages=async() =>{

@@ -72,7 +72,7 @@ const submit=async () => {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align: center;
+  align-items: center;
   padding: 1rem;
   position: absolute;
   top: 10rem;

@@ -171,7 +171,8 @@ const backendcompany=async() =>{
 
 const recommenduser=async() =>{
   const res = await api.get('recommenduser');
-  console.log(res.data)
+  console.log('hey')
+  // console.log(res.data)
   suggestfrontents.value=res.data.usercompanies;
   suggestbackends.value=res.data.othercompanies;
 };

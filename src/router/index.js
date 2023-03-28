@@ -16,6 +16,7 @@ import Frontend from "@/components/Frontend";
 import All_companies from "@/views/All_companies.vue";
 import Allfrontend from "@/components/Allfrontend";
 import Allbackend from "@/components/Allbackend";
+import Specificlanguage from "@/components/Specificlanguage";
 // const requiresAuth=false;
 
 const user=localStorage.getItem('username')
@@ -105,6 +106,11 @@ const routes = [
     path: '/all_backend',
     name: 'all_backend',
     component: Allbackend
+  },
+  {
+    path: '/show_all_companies',
+    name: 'show_all_companies',
+    component: Specificlanguage
   }
 ]
 
