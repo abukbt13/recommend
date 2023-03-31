@@ -16,7 +16,6 @@
           </div>
           <div class="card-body">
             <img :src="'http://127.0.0.1:8000/storage/company/'+result.company_logo" style="width:100%; height: 14rem;">
-            <p>hello world</p>
           </div>
           <div class="card-footer">
           </div>

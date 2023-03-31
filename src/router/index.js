@@ -16,7 +16,7 @@ import Frontend from "@/components/Frontend";
 import All_companies from "@/views/All_companies.vue";
 import Allfrontend from "@/components/Allfrontend";
 import Allbackend from "@/components/Allbackend";
-import Specificlanguage from "@/components/Specificlanguage";
+import Specificlanguage from "@/components/specificlanguage";
 // const requiresAuth=false;
 
 const user=localStorage.getItem('username')

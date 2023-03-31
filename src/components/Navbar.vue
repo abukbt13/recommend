@@ -8,6 +8,7 @@
 
       <button @click="findCompanies(specific_language.name)" class="btn language btn-success p-2 ms-1">{{specific_language.name}}</button>
     </div>
+    
   </div>
 
 </template>

@@ -6,6 +6,7 @@
 <!--      <button type="submit">Search</button>-->
 <!--    </form>-->
     <div class="show" v-if="username">
+    <h2>home</h2>
 
       {{username}}<span><button @click="logOut" class="btn btn-sm btn-secondary mx-1 my-1">LOG OUT</button></span>
 
