@@ -8,7 +8,6 @@ import Language from "@/views/Language.vue"
 import Admindashboard from "@/views/Admindashboard.vue"
 import Test  from "@/views/Test.vue";
 import Verify from "@/components/Verify.vue";
-import Company_moredetail from "@/components/Company_moredetail.vue";
 import Retrieve from "@/views/Retrieve.vue";
 import PasswordReset from "@/views/Passwordreset.vue";
 import Backend from "@/components/Backend";
@@ -17,6 +16,7 @@ import All_companies from "@/views/All_companies.vue";
 import Allfrontend from "@/components/Allfrontend";
 import Allbackend from "@/components/Allbackend";
 import Specificlanguage from "@/components/specificlanguage";
+import View_companies from "@/components/View_companies";
 // const requiresAuth=false;
 
 const user=localStorage.getItem('username')
@@ -72,11 +72,7 @@ const routes = [
     name: 'hostingdetails',
     component: Hosting
   },
-  {
-    path: '/company_moredetail',
-    name: 'company_moredetail',
-    component: Company_moredetail
-  },
+
   {
     path: '/frontend',
     name: 'frontend',
@@ -111,6 +107,11 @@ const routes = [
     path: '/show_all_companies',
     name: 'show_all_companies',
     component: Specificlanguage
+  },
+  {
+    path: '/view_companies',
+    name: 'view_companies',
+    component: View_companies
   }
 ]
 

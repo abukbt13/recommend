@@ -1,6 +1,9 @@
 <template>
-<div class="upload d-flex flex-column align-items-center">
-  <div class="form">
+
+  <AdminHeader />
+<div class="upload d-flex flex-column align-items-center"><div class="form">
+
+  <a href="/admindashboard" class="btn btn-success">Go Back</a>
     <h2>Upload company Details here</h2>
     <form @submit.prevent="submit">
       <div class="form-group my-2">
@@ -23,6 +26,7 @@
 </template>
 
 <script setup>
+import AdminHeader  from "@/components/AdminHeader.vue";
 import axios from "axios";
 import {ref} from "vue";
 const company_name=ref('')
@@ -60,5 +64,7 @@ const submit=async () => {
 </script>
 
 <style scoped>
-
+.upload{
+  position: relative;
+}
 </style>

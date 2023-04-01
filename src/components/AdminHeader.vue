@@ -1,32 +1,42 @@
 <template>
-  <div class="head fixed-top position-relative d-flex flex-row justify-content-between align-items-center">
-   <div class="title">
-     <a id="home" class="home text-uppercase text-decoration-none" href="/">Diamond</a>
-   </div>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid bg-primary">
+      <a class="navbar-brand" href="/">Diamond recommender</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+          </li>
 
-    <div class="links d-lg-flex d-none d-sm-block">
-      <router-link  to="/company" class="link px-2 text-uppercase" href="#">Company</router-link>
-      <router-link  to="/hostingdetails" class="link px-2 text-uppercase" href="#">Hosting Details</router-link>
-      <router-link  to="/language" class="link px-2 text-uppercase" href="#">Language</router-link>
-    </div>
-    <div class="links d-lg-none  d-sm-block d-md-none">
-      show
-    </div>
 
-  </div>
+        </ul>
+        <div class="d-flex align-content-center justify-content-center" role="search">
+          <p class="pt-3 pe-3">{{ username }}</p>
+
+          <button @click="logOut" class="btn btn-sm btn-secondary mx-1 my-1"> <span><i style="font-size: 26px;" class="fa pe-2 fa-sign-out" aria-hidden="true"></i>
+</span>LOG OUT</button>
+
+        </div>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script setup>
+const username=localStorage.getItem("username");
+const logOut= () => {
+  alert('Log out of the system sign')
+  localStorage.removeItem('token')
+  localStorage.removeItem('username')
+  localStorage.removeItem('role_as')
+  localStorage.removeItem('language')
+  window.location.reload('/')
 
+}
 </script>
 
 <style scoped>
-.title{
-  padding: 1.5rem;
-  width: 18rem;
-  background-color: #2c2c54;
-}
-.head{
-  background-color: #f7f1e3;
-}
+
 </style>

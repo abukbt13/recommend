@@ -1,35 +1,92 @@
 <template>
 <AdminHeader />
-  <div  class="main-content">
-    <div class="sidebar">
+  <div  class="main-content d-flex">
+    <div class="sidebar ps-3 mt-0">
+    <h4>
+      <i class="fa fa-bar-chart" aria-hidden="true"></i>
+      Dashboard
+    </h4>
+      <h5>
+        <i class="fa fa-building" aria-hidden="true"></i>
+        Company
+      </h5>
+      <ul>
+        <li class="list-unstyled"><a class="text-decoration-none" href="/company">
+          <i class="fa fa-square" aria-hidden="true"></i>
 
-      <h2 class="bg-">
-        Main Menu
-      </h2>
-      <p>Companies</p>
-      <ul>
-        <li class="list-unstyled"><a class="text-decoration-none" href="/company">Add Company</a></li>
-        <li class="list-unstyled"><a class="text-decoration-none" href="/viewcompany">View Company</a></li>
+          Add Company
+        </a>
+        </li>
+        <li class="list-unstyled">
+          <a class="text-decoration-none" href="/view_companies">
+            <i class="fa fa-square" aria-hidden="true"></i>
+            View Company</a>
+        </li>
       </ul>
-      <p>Companies Details</p>
+      <h5>Companies Details</h5>
       <ul>
-        <li class="list-unstyled"><a class="text-decoration-none" href="/hostingdetails">Add Companies Detail</a></li>
-        <li class="list-unstyled"><a class="text-decoration-none" href="/hostingdetails/view">View Companies Detail</a></li>
+        <li class="list-unstyled">
+          <a class="text-decoration-none" href="/hostingdetails"> <i class="fa fa-square" aria-hidden="true"></i>
+          Add Companies Detail
+        </a>
+        </li>
+        <li class="list-unstyled"><a class="text-decoration-none" href="/hostingdetails/view">
+          <i class="fa fa-square" aria-hidden="true"></i>
+          View Companies Detail</a>
+        </li>
 
       </ul>
-      <p>Hosting Details</p>
+      <h5>Applications</h5>
       <ul>
-        <li>Add Hosting Details</li>
-        <li>View Hosting Details</li>
+        <li class="list-unstyled">
+          <a class="text-decoration-none" href="/hostingdetails"> <i class="fa fa-square" aria-hidden="true"></i>
+            View request
+          </a>
+        </li>
       </ul>
-      <p>Languages</p>
-      <ul>
-        <li>Add Languages</li>
-        <li>View Languages</li>
-      </ul>
+
     </div>
     <div class="content">
-    <p>{{name}}</p>
+      <div class="row">
+        <div class="col sm-6">
+          <div class="users">
+            <i style="border-radius:50%;border:solid 1px grey;padding:0.5rem;font-size: 43px; background-color: white;color:grey; position: relative;top:-30px; left:4.7rem;" class="fa fa-users" aria-hidden="true"></i>
+
+              <h4 class="text-center m-1">Users</h4>
+
+            <div class="m-1">
+              <h1 class="text-center">78</h1>
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="col sm-6">
+          <div class="users">
+            <i style="border-radius:50%;border:solid 1px grey;padding:0.5rem;font-size: 43px; background-color: white;color:grey; position: relative;top:-30px; left:4.7rem;" class="fa fa-building-o" aria-hidden="true"></i>
+
+              <h4 class="text-center m-1">Companies</h4>
+
+            <div class="m-1">
+              <h1 class="text-center">78</h1>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-content-center">
+
+          <div class="users">
+            <i style="border-radius:50%;border:solid 1px grey;padding:0.5rem;font-size: 43px; background-color: white;color:grey; position: relative;top:-30px; left:4.7rem;" class="fa fa-book" aria-hidden="true"></i>
+
+            <h4 class="text-center m-1">Application</h4>
+
+            <div class="m-1">
+              <h1 class="text-center">78</h1>
+              <br>
+            </div>
+
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -46,7 +103,7 @@ const name = computed(() => route.query.name);
 const role_as=ref('')
 role_as.value=localStorage.getItem('role_as')
 
-if (role_as.value === null || role_as.value !== '1') {
+if (role_as.value === null) {
   window.location.href = '/login';
 }
 import AdminHeader  from "@/components/AdminHeader.vue";
@@ -54,18 +111,17 @@ import AdminHeader  from "@/components/AdminHeader.vue";
 </script>
 
 <style scoped>
-.main-content{
-  position: static;
+.users{
+  background-color: #a4b0be;
+  margin: 5rem;
+  width:15rem;
+  border-radius: 7px;
 }
+
 .sidebar{
-  padding: 1.5rem;
+  height: 100vh;
+  margin-top: 0rem;
   width: 18rem;
-  height: 87vh;
-  background-color: #40407a;
-}
-p:hover{
-  background-color: #f7f1e3;
-  color: #227093;
-  transition: 2s linear;
+  background-color: #f5f6fa;
 }
 </style>
