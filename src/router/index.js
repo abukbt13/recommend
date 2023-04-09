@@ -17,6 +17,8 @@ import Allfrontend from "@/components/Allfrontend";
 import Allbackend from "@/components/Allbackend";
 import Specificlanguage from "@/components/specificlanguage";
 import View_companies from "@/components/View_companies";
+import Edit_company from "@/more/edit_company.vue";
+import Edit_company_detail from "@/more/view_companies_details.vue";
 // const requiresAuth=false;
 
 const user=localStorage.getItem('username')
@@ -112,6 +114,16 @@ const routes = [
     path: '/view_companies',
     name: 'view_companies',
     component: View_companies
+  },
+  {
+    path: '/edit_company',
+    name: 'edit_company',
+    component: Edit_company
+  },
+  {
+    path: '/company_detail',
+    name: 'company_detail',
+    component: Edit_company_detail
   }
 ]
 

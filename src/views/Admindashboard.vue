@@ -8,9 +8,27 @@
     </h4>
       <h5>
         <i class="fa fa-building" aria-hidden="true"></i>
-        Company
+        Languages
       </h5>
+        <ul>
+            <li class="list-unstyled"><a class="text-decoration-none" href="/language">
+                <i class="fa fa-square" aria-hidden="true"></i>
+                Add languages
+            </a>
+            </li>
+            <li class="list-unstyled">
+                <a class="text-decoration-none" href="/view_languages">
+                    <i class="fa fa-square" aria-hidden="true"></i>
+                    View languages</a>
+            </li>
+        </ul>
+        <h5>
+            <i class="fa fa-building" aria-hidden="true"></i>
+            Company
+        </h5>
+
       <ul>
+
         <li class="list-unstyled"><a class="text-decoration-none" href="/company">
           <i class="fa fa-square" aria-hidden="true"></i>
 
@@ -30,7 +48,7 @@
           Add Companies Detail
         </a>
         </li>
-        <li class="list-unstyled"><a class="text-decoration-none" href="/hostingdetails/view">
+        <li class="list-unstyled"><a class="text-decoration-none" href="/company_detail">
           <i class="fa fa-square" aria-hidden="true"></i>
           View Companies Detail</a>
         </li>
@@ -55,7 +73,7 @@
               <h4 class="text-center m-1">Users</h4>
 
             <div class="m-1">
-              <h1 class="text-center">78</h1>
+              <h1 class="text-center">{{ users }}</h1>
               <br>
             </div>
           </div>
@@ -67,7 +85,7 @@
               <h4 class="text-center m-1">Companies</h4>
 
             <div class="m-1">
-              <h1 class="text-center">78</h1>
+              <h1 class="text-center">{{ companies }}</h1>
               <br>
             </div>
           </div>
@@ -81,7 +99,7 @@
             <h4 class="text-center m-1">Application</h4>
 
             <div class="m-1">
-              <h1 class="text-center">78</h1>
+              <h1 class="text-center">{{ applications }}</h1>
               <br>
             </div>
 
@@ -92,14 +110,16 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import {ref, computed, onMounted} from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
 
 const name = computed(() => route.query.name);
 
-
+const users=ref('')
+const companies=ref('')
+const applications=ref('')
 const role_as=ref('')
 role_as.value=localStorage.getItem('role_as')
 
@@ -107,7 +127,21 @@ if (role_as.value === null) {
   window.location.href = '/login';
 }
 import AdminHeader  from "@/components/AdminHeader.vue";
+import axios from "axios";
 
+const getNumbers=async () => {
+    const ress = await axios.get('http://127.0.0.1:8000/api/count');
+    if (ress.status == 200) {
+        console.log(ress)
+        users.value=ress.data.users;
+        companies.value=ress.data.companies;
+        applications.value=ress.data.applications;
+    }
+}
+
+onMounted(()=>{
+    getNumbers()
+})
 </script>
 
 <style scoped>

@@ -1,6 +1,9 @@
 <template>
   <Navbar/>
- 
+    <br>
+    <br>
+    <br>
+
   <div class="showall">
     <div class="card" v-for="company in companies" :key="company">
       <div class="card-header">

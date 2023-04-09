@@ -1,6 +1,6 @@
 <template>
   <Navbar/>
- 
+
   <div class="showall">
     <div class="card" v-for="company in companies" :key="company">
       <div class="card-header">
@@ -25,7 +25,7 @@
         <ul>
           <li v-for="languagedetail in languagedetails" :key="languagedetail">{{ languagedetail.language }}</li>
         </ul>
-        <a :href="companydetail.url" target="_blank" class="btn ms-4 btn-outline-danger btn-danger text-white w-75" @click="showMoreCompanydetails(companydetail.company_name)">More About</a>
+        <a :href="companydetail.url" target="_blank" class="btn ms-4 btn-outline-danger btn-danger text-white w-75">More About</a>
       </div>
 
 </template>

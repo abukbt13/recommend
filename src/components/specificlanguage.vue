@@ -1,5 +1,8 @@
 <template>
-
+    <Navbar/>
+    <br>
+    <br>
+    <br>
     <div class="showall">
     <div class="card" v-for="company in companies" :key="company">
       <div class="card-header">
@@ -36,9 +39,10 @@ import async from "async";
 import {computed, onMounted, reactive, ref} from "vue";
 
 const route = useRoute();
-  import { useRouter } from "vue-router";
+  // import { useRouter } from "vue-router";
   import axios from "axios";
   import { useRoute } from 'vue-router';
+import Navbar from "@/components/Navbar.vue";
 
 const hover=ref(false);
 

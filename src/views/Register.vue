@@ -25,12 +25,7 @@
             <option value="backend">Backend</option>
             <option value="other">Other</option>
           </select>
-          Occupation:
-          <p>Are you a software developer</p>
-          <select class="form-control" v-model="occupation">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
+
 
           Password:
           <input type="password" v-model="password"  class="form-control" placeholder="Enter Password" required>
@@ -67,7 +62,6 @@ import { useRouter } from 'vue-router';
     const name = ref('');
     const email = ref('');
     const password = ref('');
-    const occupation = ref('');
     const language_type = ref('');
     const errors = ref([]);
     const message = ref('');
@@ -83,7 +77,6 @@ import { useRouter } from 'vue-router';
       formData.append('name', name.value);
       formData.append('email', email.value);
       formData.append('password', password.value);
-      formData.append('occupation', occupation.value);
       formData.append('language_type', language_type.value);
 
 

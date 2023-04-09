@@ -5,6 +5,9 @@
     <button type="submit">Search</button>
   </form>
   <Navbar/>
+    <br>
+    <br>
+    <br>
   <div class="home">
 <!--    if user search"\???-->
 
