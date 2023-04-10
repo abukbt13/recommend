@@ -33,6 +33,7 @@
           <div class="card-header text-center">
             <span>{{suggestfrontent.company_name}}</span>
           </div>
+
           <div class="card-body">
             <img :src="'http://127.0.0.1:8000/storage/company/'+suggestfrontent.company_logo" style="width:100%; height: 14rem;">
           </div>

@@ -1,41 +1,46 @@
 <template>
-<div>
-  <form  @submit.prevent="submit" class="row w-25  flex-column d-flex justify-content-center ">
-  <div class="div">
+
+  <div class="div d-flex justify-content-center align-content-center">
+      <form  @submit.prevent="submit" class="row w-25  flex-column d-flex justify-content-center ">
+
       <div class="errors bg-danger text-warning">{{ error }}</div>
+
       <div class="form-group">
-        <label for="">Enter Email you register with</label>
-        <input type="email" v-model="email" class="form-control">
-      </div>
-      <div class="form-group">
-      <label for="">OTP</label>
+
+      <p for="">Open Your Email and Enter the OTP you  received to verify your account</p>
+          <label for="" class="my-1">Enter the OTP</label>
       <input type="text" v-model="otp" minlength="4" maxlength="5" class="form-control">
       </div>
       <div class="form-group">
       <button class="btn mt-2 w-100 btn-success">Verify your Account</button>
       </div>
+      </form>
   </div>
-  </form>
-  </div>
-  <div class="popup" v-show="popupdiv">
-    <p class="text-">You have been successfully registered</p>
-    <p class="text-info text-bg-secondary">{{message}}</p>
-    <a class="text-decoration-none btn btn-success" href="/verify">Verify your account</a>
-  </div>
+
+
+<!--  <div class="popup" v-show="popupdiv">-->
+<!--    <p class="text-">You have been successfully registered</p>-->
+<!--    <p class="text-info text-bg-secondary">{{message}}</p>-->
+<!--    <a class="text-decoration-none btn btn-success" href="/verify">Verify your account</a>-->
+<!--  </div>-->
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import axios from "axios";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 const router=useRouter()
 const popupdiv=false;
-const email=ref('');
+// const email=ref('');
 const otp=ref('');
 const error=ref('');
+const route=useRoute();
+const email = computed(() => route.query.email);
 const submit=async () => {
   const formData = new FormData();
-  formData.append('email', email.value);
+
+
+    formData.append('email', email.value);
   formData.append('otp', otp.value);
 
   const res = await axios.post('http://127.0.0.1:8000/api/verify', formData);

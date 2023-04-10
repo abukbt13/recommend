@@ -11,10 +11,9 @@
             {{ error }}
           </li>
         </ul>
-        <p>Enter OTp received to Reset Password</p>
-        <input type="number" placeholder="Enter Otp" >
+
         <div class="cont" v-show="pass">
-          <p>Reset Your password here</p>
+          <p class="text-center text-uppercase">Reset Your password here</p>
           Password
           <input type="password" v-model="password"  class="form-control" placeholder="Enter Password" required>
           Confirm Password
@@ -50,14 +49,13 @@
 const pass=true;
   const route = useRoute();
   const email = computed(() => route.query.email);
-  const otp = computed(() => route.query.otp);
 
   const submit = async () => {
   const formData = new FormData();
   if (password.value === password2.value) {
+
   formData.append('email', email.value);
   formData.append('password', password.value);
-  formData.append('otp', otp.value);
   const res = await axios.post('http://127.0.0.1:8000/api/reset_password', formData);
   if (res.status == 200) {
   router.push('/login')

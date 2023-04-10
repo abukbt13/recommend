@@ -87,7 +87,12 @@ import { useRouter } from 'vue-router';
         if (res.status == 200) {
           errors.value = res.data.errors;
           message.value = res.data.message;
-          router.push('/verify');
+          router.push({
+              path: '/verify',
+              query: {
+                  email: email.value
+              }
+          });
         }
       } catch (error) {
         alert('error in network');
