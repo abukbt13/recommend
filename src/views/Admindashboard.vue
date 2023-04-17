@@ -16,11 +16,7 @@
                 Add languages
             </a>
             </li>
-            <li class="list-unstyled">
-                <a class="text-decoration-none" href="/view_languages">
-                    <i class="fa fa-square" aria-hidden="true"></i>
-                    View languages</a>
-            </li>
+
         </ul>
         <h5>
             <i class="fa fa-building" aria-hidden="true"></i>
@@ -57,7 +53,7 @@
       <h5>Applications</h5>
       <ul>
         <li class="list-unstyled">
-          <a class="text-decoration-none" href="/hostingdetails"> <i class="fa fa-square" aria-hidden="true"></i>
+          <a class="text-decoration-none" href="/applications"> <i class="fa fa-square" aria-hidden="true"></i>
             View request
           </a>
         </li>

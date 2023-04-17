@@ -1,27 +1,34 @@
 <template>
 
+    <AdminHeader />
   <div class="container">
     <div class="row d-flex align-content-center justify-content-center">
       <!--      <label for="">{{error}}</label>-->
       <div class="col col-sm-12 col-md-6 col-lg-6">
         <form @submit.prevent="submit" autocomplete="on">
-
-          <p class="text-light bg-danger mt-1 p-2 justify-content-center">Hosting Details of different companiescompany_id</p>
+            <h3 style="background: #227093; " class="text-center text-white p-2">Upload hosting details here</h3>
           Company Name:
+
+
           <select class="form-control" v-model="company_name">
+              <option disabled value="">--Select Company--</option>
             <option  v-for="company in companies" v-bind:value="company.company_name">
+
               {{ company.company_name }}
             </option>
           </select>
           Language:
           <select class="form-control" v-model="language">
+              <option disabled value="">--Select language--</option>
             <option  v-for="language in languages" v-bind:value="language.name">
               {{ language.name }}
             </option>
           </select>
           Type:
           <select class="form-control" v-model="type">
-            <option value="Frontend">Frontend</option>
+              <option disabled value="">--Select Type--</option>
+
+              <option value="Frontend">Frontend</option>
             <option value="Backend">Backend</option>
           </select>
           Least Price per storage provided:
@@ -29,7 +36,12 @@
           Storage:
           <input type="text" v-model="storage"  class="form-control" placeholder="Enter Storage" required>
           Can Host Free:
-          <input type="text" v-model="can_host_free"  class="form-control" placeholder="Enter Can host free" required>
+            <select v-model="can_host_free" class="form-control">
+                <option disabled value="">--Can Host free--</option>
+
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
           <button type="submit" class="btn btn-outline-info my-2 form-control">Upload Company Details</button>
         </form>
       </div>
@@ -42,7 +54,7 @@
 import {onMounted, reactive, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import axios from "axios";
-
+import AdminHeader from "@/components/AdminHeader.vue";
 const router = useRouter();
 
 

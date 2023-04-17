@@ -9,7 +9,7 @@
 
       <p for="">Open Your Email and Enter the OTP you  received to verify your account</p>
           <label for="" class="my-1">Enter the OTP</label>
-      <input type="text" v-model="otp" minlength="4" maxlength="5" class="form-control">
+      <input type="text" v-model="otp" minlength="5" maxlength="7" class="form-control">
       </div>
       <div class="form-group">
       <button class="btn mt-2 w-100 btn-success">Verify your Account</button>

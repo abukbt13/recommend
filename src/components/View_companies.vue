@@ -1,6 +1,5 @@
 <template>
   <AdminHeader />
-  <a href="/admindashboard" class="btn btn-success">Go Back</a>
   <table class="my-3 ps-5 pe-5 w-100 table table-bordered table-primary table-hover">
     <thead>
     <tr>

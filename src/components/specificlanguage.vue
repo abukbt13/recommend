@@ -51,12 +51,15 @@ const companydetails=ref([]);
 const   languagedetails=ref([]);
 
 const namedlanguage = computed(() => route.query.language);
+
 const languages = async () => {
   const res = await axios.get(`http://127.0.0.1:8000/api/show_all_companies/${namedlanguage.value}`);
   if (res.status == 200) {
+
     companies.value = res.data;
     console.log(res.data);
   }
+
 };
 const closeHover = () => {
  hover.value =false;
@@ -75,6 +78,7 @@ const fetchDetails= async (id) =>{
   }
 }
 onMounted(() => {
+
   languages(namedlanguage.value);
 });
 </script>

@@ -3,7 +3,6 @@
   <AdminHeader />
 <div class="upload d-flex flex-column align-items-center"><div class="form">
 
-  <a href="/admindashboard" class="btn btn-success">Go Back</a>
     <h2>Upload company Details here</h2>
     <form @submit.prevent="submit">
       <div class="form-group my-2">

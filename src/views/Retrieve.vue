@@ -51,10 +51,9 @@ const submit=async () => {
 
     if(res.data.status=='success') {
       router.push({
-        path: '/resetPassword',
+        path: '/authotp',
         query: {
-          email: email.value,
-          otp: otp.value
+          email: email.value
         }
       });
     }

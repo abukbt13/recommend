@@ -1,6 +1,5 @@
 <template>
     <AdminHeader />
-    <a href="/admindashboard" class="btn btn-success">Go Back</a>
     <table class="my-3 ps-5 pe-5 w-100 table table-bordered table-primary table-hover">
         <thead>
         <tr>
@@ -20,7 +19,7 @@
             <td>
                 <img :src="'http://127.0.0.1:8000/storage/company/'+company.company_logo" style="width:200px; height: 100px;">
             </td>
-            <td class="p-5"><button @click="editCompany(company.id)" class="btn btn-success">Edit</button></td>
+            <td><router-link :to="`edit_company/${company.id}`">Edit</router-link></td>
             <td class="p-5"><button class="btn btn-danger">Delete</button></td>
         </tr>
         </tbody>
@@ -41,15 +40,7 @@ const getCompanies=async () => {
         console.log(ress.data);
     }
 }
-function editCompany($id){
-    router.push({
-        path: '/edit_company',
-        query: {
-            id: $id
-        }
-    });
 
-}
 onMounted(()=> {
     getCompanies();
 })

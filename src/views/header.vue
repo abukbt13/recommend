@@ -1,6 +1,6 @@
 <template>
   <div class="head d-flex bg-info flex-row justify-content-between align-items-center px-2">
-    <a id="home" class="home text-uppercase text-decoration-none" href="/">Diamond</a>
+    <a id="home" class="home text-uppercase text-decoration-none" href="/"><img src="costa.png" class="ms-5 bg-info m-3" width="40" height="40" alt=""></a>
 <!--    <form @submit.prevent="searchCompany">-->
 <!--      <input type="text" v-model="searchTerm" placeholder="Search...">-->
 <!--      <button type="submit">Search</button>-->

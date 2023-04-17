@@ -1,81 +1,71 @@
-<div class="card" >
-<div class="card-header text-center">
-  <span>{{bestfrontends.company_name}}</span>
-</div>
-<div class="card-body">
-  <img :src="'http://127.0.0.1:8000/storage/company/'+bestfrontends.company_logo" style="width:100%; height: 14rem;">
-  <p>This is best frontend</p>
-</div>
+<template>
+    <div class="d-flex align-content-center justify-content-center">
+        <div class=" w-50" v-for="company in companies" :key="company">
+            <h2>Edit Company Details</h2>
+            <form @submit.prevent="submit">
+                <div class="form-group my-2">
+                    <label for="">Company name</label>
+                    <input type="text" class="form-control" v-model="company_name"  placeholder="Enter The Company">
+                </div>
+                <div class="form-group my-2">
+                    <label for="">Company Url</label>
+                    <input type="text" class="form-control" v-model="url"  placeholder="Enter The Company URL">
+                </div>
+                <div class="form-group my-2">
+                    <label for="">Image</label>
+                    <div class="card-body">
+                        <img :src="'http://127.0.0.1:8000/storage/company/'+company.company_logo" style="width:60%; height: 14rem;">
+                    </div>
+                    <input type="file" class="form-control"  @change="onFileChange"   placeholder="Enter The Company">
+                </div>
 
-<div class="card-footer">
-  <button   class="btn w-100 btn-danger text-white btn-outline-info">view More Details</button>
+                <button type="submit" class="btn btn-primary my-2 px-4">Update Company Details</button>
+            </form>
 
-</div>
-</div>
-<div class="card" >
-<div class="card-header text-center">
-  <span>{{bestbackends.company_name}}</span>
-</div>
-<div class="card-body">
-  <img :src="'http://127.0.0.1:8000/storage/company/'+bestbackends.company_logo" style="width:100%; height: 14rem;">
-  <p>This is best frontend</p>
-</div>
+        </div>
+    </div>
+</template>
 
-<div class="card-footer">
-  <button   @click="showId(bestbackends.id)" class="btn w-100 btn-danger text-white btn-outline-info">view More Details</button>
+<script setup>
+import {computed, onMounted, reactive, ref} from "vue";
+import {useRoute} from "vue-router";
+import axios from "axios";
 
-</div>
-</div>
+const route = useRoute();
+const companies = ref([]);
+const id = computed(() => route.query.id);
+const company_name = ref('');
+const url = ref('');
+const company_logo = ref(null);
 
-<div class="card" v-for="other in othercompanies" :key="other" @mouseleave="showContent">
-<div class="card-header text-center">
-  <span>{{other.company_name}}</span>
-</div>
-<div class="card-body">
-  <img :src="'http://127.0.0.1:8000/storage/company/'+other.company_logo" style="width:100%; height: 14rem;">
-  <p>hello world</p>
-</div>
-<div class="card-footer">
-  <button   @click="fetchDetails(other.id)" class="btn w-100 btn-danger text-white btn-outline-info">view More Details</button>
-</div>
-</div>
+const company = async () => {
+    const res = await axios.get(`http://127.0.0.1:8000/api/edit_company/${id.value}`);
+    if (res.status == 200) {
+        companies.value = res.data;
+        company_name.value = res.data.company_name;
+        url.value = res.data.url;
+    }
+};
 
+onMounted(() => {
+    company();
+});
 
+const onFileChange = (event) => {
+    company_logo.value = event.target.files[0];
+};
 
-
-<!--User Centered-->
-
-
-
-<h2>Most people also love</h2>
-<!--      <div class="usercard">-->
-<!--        <div class="card" v-for="alsoloved in alsoloveds" :key="alsoloved" @mouseleave="showContent">-->
-<!--          <div class="card-header text-center">-->
-<!--            <span>{{alsoloved.company_name}}</span>-->
-<!--          </div>-->
-<!--          <div class="card-body">-->
-<!--            <img :src="'http://127.0.0.1:8000/storage/company/'+alsoloved.company_logo" style="width:100%; height: 14rem;">-->
-<!--            <p>hello world</p>-->
-<!--          </div>-->
-<!--          <div class="card-footer">-->
-<!--            <button   @click="showId(company.id)" class="btn float-end btn-danger text-white btn-outline-info">view More Details</button>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--      </div>-->
-<!--</div>-->
-<!--    <div class="companies"   v-else="{usernamedetails}">-->
-<!--        <div class="card" v-for="company in companies" :key="company" @mouseleave="showContent">-->
-<!--          <div class="card-header text-center">-->
-<!--            <span>{{company.company_name}}</span>-->
-<!--          </div>-->
-<!--          <div class="card-body">-->
-<!--            <img :src="'http://127.0.0.1:8000/storage/company/'+company.company_logo" style="width:100%; height: 14rem;">-->
-<!--            <p>hello world</p>-->
-<!--          </div>-->
-<!--          <div class="card-footer">-->
-<!--           <button   @click="fetchDetails(company.id)" class="btn w-100 btn-danger text-white btn-outline-info">view More Details</button>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--    </div>-->
+const submit = async () => {
+    const formData = new FormData();
+    formData.append('company_name', company.company_name);
+    formData.append('url', company.url);
+    console.log(formData);
+    axios.post('http://127.0.0.1:8000/api/update_company', formData)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(error => {
+            // handle error response
+        });
+}
+</script>

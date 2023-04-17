@@ -10,6 +10,7 @@
           <p style="font-size: 32px;" class="px-3 text-info  text-xl-center">Register Now </p>
 
         </div>
+            <p class="bg-danger text-white">{{error}}</p>
           <ul class="">
             <li class="bg-danger text-white p-3" v-for="error in errors" :key="error">
               {{ error }}
@@ -29,8 +30,10 @@
 
           Password:
           <input type="password" v-model="password"  class="form-control" placeholder="Enter Password" required>
+            Confirm Password:
+            <input type="password" v-model="c_password"  class="form-control" placeholder="Enter Password" required>
 
-          <div class="d-flex justify-content-between pt-2">
+            <div class="d-flex justify-content-between pt-2">
             <div class="">
             <button type="submit" class="btn btn-outline-info">Register</button>
             </div>
@@ -62,8 +65,10 @@ import { useRouter } from 'vue-router';
     const name = ref('');
     const email = ref('');
     const password = ref('');
+    const c_password = ref('');
     const language_type = ref('');
     const errors = ref([]);
+    const error = ref('');
     const message = ref('');
     const loader = ref(false);
     const register = ref(true);
@@ -77,6 +82,7 @@ import { useRouter } from 'vue-router';
       formData.append('name', name.value);
       formData.append('email', email.value);
       formData.append('password', password.value);
+      formData.append('c_password', c_password.value);
       formData.append('language_type', language_type.value);
 
 
@@ -85,14 +91,21 @@ import { useRouter } from 'vue-router';
       try {
         const res = await axios.post('http://127.0.0.1:8000/api/register', formData);
         if (res.status == 200) {
-          errors.value = res.data.errors;
-          message.value = res.data.message;
-          router.push({
-              path: '/verify',
-              query: {
-                  email: email.value
-              }
-          });
+
+          if(res.data.status == 'failed') {
+              error.value=res.data.error
+              errors.value = res.data.errors;
+              message.value = res.data.message;
+          }
+          else {
+              router.push({
+                  path: '/verify',
+                  query: {
+                      email: email.value
+                  }
+              });
+          }
+
         }
       } catch (error) {
         alert('error in network');
