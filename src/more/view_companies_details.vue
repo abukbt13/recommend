@@ -3,7 +3,7 @@
     <table class="my-3 ps-5 pe-5 w-100 table table-bordered table-primary table-hover">
         <thead>
         <tr>
-            <th>#</th>
+            <th>detail</th>
             <th>Company Name</th>
             <th>Component URL</th>
             <th>Company LOGO</th>
@@ -29,7 +29,7 @@
 <script setup>
 import AdminHeader  from "@/components/AdminHeader.vue";
 import axios from "axios";
-import {onMounted, ref} from "vue";
+import {onBeforeUnmount, onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
 const companies= ref ([]);
 const router =useRouter()
@@ -40,7 +40,6 @@ const getCompanies=async () => {
         console.log(ress.data);
     }
 }
-
 onMounted(()=> {
     getCompanies();
 })

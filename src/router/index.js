@@ -118,7 +118,7 @@ const routes = [
     component: View_companies
   },
   {
-    path: '/edit_company',
+    path: '/edit_company/:id',
     name: 'edit_company',
     component: Edit_company
   },
