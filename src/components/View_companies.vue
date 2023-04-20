@@ -6,7 +6,7 @@
       <th>#</th>
       <th>Company Name</th>
       <th>Component URL</th>
-      <th>Company LOGO</th>
+      <th>Company Logo</th>
       <th colspan="2">Operation</th>
     </tr>
     </thead>
@@ -19,7 +19,8 @@
       <td>
           <img :src="'http://127.0.0.1:8000/storage/company/'+company.company_logo" style="width:200px; height: 100px;">
         </td>
-        <td><router-link :to="`edit_company/${company.id}`">Edit</router-link></td>      <td class="p-5"><button class="btn btn-danger">Delete</button></td>
+        <td><router-link :to="`edit_company/${company.id}`">Edit</router-link></td>
+        <td class="p-5"><button @click="deleteCompany(company.id)" class="btn btn-danger">Delete</button></td>
     </tr>
     </tbody>
   </table>
@@ -32,6 +33,14 @@ import {onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
 const companies= ref ([]);
 const router =useRouter()
+const deleteCompany=async (id) => {
+    const ress = await axios.get('http://127.0.0.1:8000/api/delete_company/'+id);
+    if (ress.status == 200) {
+        alert('The company has been deleted Successfully')
+        getCompanies();
+        console.log(ress.data);
+    }
+}
 const getCompanies=async () => {
     const ress = await axios.get('http://127.0.0.1:8000/api/show_all_companies');
     if (ress.status == 200) {
