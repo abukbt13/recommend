@@ -21,6 +21,7 @@ import Edit_company from "@/more/edit_company.vue";
 import Edit_company_detail from "@/more/view_companies_details.vue";
 import Authotp   from "@/more/Authotp.vue";
 import Applications   from "@/more/applications.vue";
+import Edit_hosting_details from "@/more/Edit_hosting_details.vue";
 // const requiresAuth=false;
 
 const user=localStorage.getItem('username')
@@ -126,6 +127,12 @@ const routes = [
     path: '/company_detail',
     name: 'company_detail',
     component: Edit_company_detail
+  },
+    //edit hosting_details
+  {
+    path: '/edit_hosting_details/:id',
+    name: 'edit_hosting_details',
+    component: Edit_hosting_details
   },
   {
     path: '/authotp',

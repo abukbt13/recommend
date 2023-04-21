@@ -1,7 +1,9 @@
 <template>
+    <AdminHeader />
     <div class="d-flex align-content-center justify-content-center">
         <div class=" w-50" >
             <h2>Edit Company </h2>
+                <h2 class="bg-success">{{message}}</h2>
             <form @submit.prevent="submit">
                 <div class="form-group my-2">
                     <label for="">Company name</label>
@@ -27,11 +29,13 @@
 import axios from 'axios'
 import {computed, onBeforeMount, onMounted, reactive, ref} from 'vue'
 import {useRoute} from "vue-router";
+import AdminHeader from "@/components/AdminHeader.vue";
 const route=useRoute();
 const company_name=ref('')
 const company_logo=ref('')
 const url=ref('')
 const new_image=ref('')
+const message=ref('')
 
 const onFileChange=(e)=>{
     new_image.value=e.target.files[0];
@@ -60,7 +64,8 @@ const submit= async () =>{
         formData.append('company_logo',company_logo.value);
         const res = await axios.post(`http://127.0.0.1:8000/api/update_company/${route.params.id}`,formData)
         if(res.status == 200){
-            alert('company Successfully updated')
+            message.value = res.data
+            // alert('company Successfully updated')
         }
 
     }

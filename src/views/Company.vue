@@ -4,6 +4,12 @@
 <div class="upload d-flex flex-column align-items-center"><div class="form">
 
     <h2>Upload company Details here</h2>
+    <h2 class="text-center text-info">{{message}}</h2>
+    <ul class="">
+        <li class="bg-danger text-white p-3" v-for="error in errors" :key="error">
+            {{ error }}
+        </li>
+    </ul>
     <form @submit.prevent="submit">
       <div class="form-group my-2">
         <label for="">Company name</label>
@@ -32,6 +38,8 @@ const company_name=ref('')
 const company_logo=ref('')
 const url=ref('')
 const role_as=ref('')
+const message=ref('')
+const errors=ref([])
 role_as.value=localStorage.getItem('role_as')
 
 if (role_as.value === null || role_as.value !== '1') {
@@ -54,8 +62,9 @@ const submit=async () => {
 
   const res = await api.post('company', formData);
   if (res.status == 200) {
-    alert('success')
-    // router.push('/dashboard')
+      console.log(res.data.status)
+      errors.value = res.data.errors;
+    message.value=res.data.message;
 
   }
 

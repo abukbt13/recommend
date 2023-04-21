@@ -81,7 +81,7 @@
         <p class="text-white text-decoration-underline">Languages it supports include:</p>
         <ul>
 <!--          {{}}-->
-          <li v-for="languagedetail in languagedetails" :key="languagedetail">{{ languagedetail.language }}i</li>
+          <li v-for="languagedetail in languagedetails" :key="languagedetail">{{ languagedetail.language }}</li>
         </ul>
         <a :href="companydetail.url" target="_blank" class="btn ms-4 btn-outline-danger btn-danger text-white w-75" @click="showMoreCompanydetails(companydetail.company_name)">More About</a>
       </div>
@@ -174,7 +174,8 @@ const backendcompany=async() =>{
 
 const recommenduser=async() =>{
   const res = await api.get('recommenduser');
-  console.log('hey')
+  console.log(res.data.usercompanies)
+  console.log(res.data.othercompanies)
   // console.log(res.data)
   suggestfrontents.value=res.data.usercompanies;
   suggestbackends.value=res.data.othercompanies;
