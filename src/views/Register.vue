@@ -19,7 +19,7 @@
         Name:
           <input type="text" v-model="name"  class="form-control" placeholder="Enter Full Name" required>
           Email:
-          <input type="email" v-model="email"  class="form-control" placeholder="Enter Email" required>
+          <input type="email" v-model="email"  class="form-control" placeholder="Enter Email" required="email">
            Languages Type:
           <select class="form-control" v-model="language_type">
             <option value="frontend">Frontend</option>

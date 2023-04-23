@@ -1,13 +1,14 @@
 <template>
+    <Navbar/><br>
+    <br>
+    <br>
 <Header />
-  <form class="form" @submit.prevent="searchCompany">
+  <form style="margin-top: 6rem;" class="form" @submit.prevent="searchCompany">
     <input type="text" v-model="searchTerm" placeholder="Search...">
     <button type="submit">Search</button>
   </form>
-  <Navbar/>
-    <br>
-    <br>
-    <br>
+
+
   <div class="home">
 <!--    if user search"\???-->
 
@@ -83,6 +84,10 @@
 <!--          {{}}-->
           <li v-for="languagedetail in languagedetails" :key="languagedetail">{{ languagedetail.language }}</li>
         </ul>
+          <h4 class="text-white text-decoration-underline">Price relative to the storage</h4>
+          <p  v-for="languagedetail in languagedetails" :key="languagedetail">Price =Ksh.{{ languagedetail.least_pricing_storage }} at storage size of {{ languagedetail.storage }} GB</p>
+
+
         <a :href="companydetail.url" target="_blank" class="btn ms-4 btn-outline-danger btn-danger text-white w-75" @click="showMoreCompanydetails(companydetail.company_name)">More About</a>
       </div>
 

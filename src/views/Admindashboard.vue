@@ -41,12 +41,12 @@
       <ul>
         <li class="list-unstyled">
           <a class="text-decoration-none" href="/hostingdetails"> <i class="fa fa-square" aria-hidden="true"></i>
-          Add Companies Detail
+          Add hosting details
         </a>
         </li>
         <li class="list-unstyled"><a class="text-decoration-none" href="/company_detail">
           <i class="fa fa-square" aria-hidden="true"></i>
-          View Companies Detail</a>
+          View hosting Details</a>
         </li>
 
       </ul>
@@ -121,6 +121,9 @@ role_as.value=localStorage.getItem('role_as')
 
 if (role_as.value === null) {
   window.location.href = '/login';
+}
+if (role_as.value =='0') {
+    window.location.href = '/login';
 }
 import AdminHeader  from "@/components/AdminHeader.vue";
 import axios from "axios";

@@ -45,7 +45,7 @@ const submit=async () => {
 
   const res = await axios.post('http://127.0.0.1:8000/api/login',formData);
   if(res.status==200) {
-
+      console.log(res)
     if(res.data.status=='success'){
       localStorage.setItem('token', res.data.token)
       localStorage.setItem('username', res.data.user.name)
@@ -59,7 +59,7 @@ const submit=async () => {
       }
     }else{
 
-      error.value = res.data.message
+      error.value = res.data.error
     }
   }
 
